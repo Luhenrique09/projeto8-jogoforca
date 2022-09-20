@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #FAFAFA;
+  font-family: 'Roboto', sans-serif;
+}
+
+.conteiner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.topo {
+  width: 650px;
+  height: 400px;
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.topo > img {
+  width: 400px;
+ 
+}
+
+.escolhaPalavra{
+  width: 140px;
+  height: 40px;
+
+  border-radius: 10px;
+  border: none;
+  background-color: #27ae60;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.teclado {
+  width: 600px;
+  height: 100px;
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+.letras {
+  width: 35px;
+  height: 35px;
+  background-color: #9faab5;
+  color: #79818c;
+  font-weight: bold;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.chute {
+width: 600px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.chute > p {
+  font-size: 20px;
+  font-weight: 300;
+
+}
+
+.chute > input {
+  width: 250px;
+  height: 30px;
+  border-color: #cfcfcf;
+  border-radius: 5px;
+  background-color: #FAFAFA;
+}
+
+.chutar {
+  height: 30px;
+  background-color: #e1ecf4;
+  font-weight: bold;
+  color: #5a80a0;
+  border-color: #5a80a0;
+  border-radius: 5px;
+}
+
+
