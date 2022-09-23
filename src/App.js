@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import palavras from './palavras';
 
-
+let n
 function getRandomValue(min, max) {
-  let n = Math.random() * (max - min) + min;
-  return Math.floor(n);
+   n = Math.random() * (max - min) + min;
+   n =Math.floor(n)
+  return n ;
 }
 
 export default function App() {
@@ -16,33 +17,31 @@ export default function App() {
   const [underlineInit, setUnderlineInit] = useState();
   const [palavraEscolhida, setPalavraEscolhia] = useState();
   const [desabilitado, setdesabilitado] = useState(false);
-  const [desabilitadoTeclas, setDesabilitadoTeclas] = useState(true);
 
+/* =========================================================================================================================================================================*/
   function escolherAPalavra(p) {
     escolhida = p[getRandomValue(0, 230)].split("");
     setPalavraEscolhia(escolhida);
-
+    console.log(p[n])
     for (let i = 0; i < escolhida.length; i++)
       underline.push("_ ");
     setUnderlineInit(underline);
     setdesabilitado(true)
-    setDesabilitadoTeclas(false)
+    
     
   }
-
-  /*===============================================================================================================================*/
+  /*=======================================================================================================================================================================*/
+  
   let [escolhidaPosicao, setEscolhidaPosicao] = useState();
   let [erro, setErro] = useState(0);
   
   const [clicados, setClicados] = useState([]);
   
-
+/* ============================================================================================================================================================================== */
   function clickTecla(t, idx) {
     let status = false;
     setClicados([...clicados, t])
-    console.log(clicados)
 
-    
     for (let i = 0; i < palavraEscolhida.length; i++) {
       escolhidaPosicao = t;
       setEscolhidaPosicao(t)
@@ -60,6 +59,17 @@ export default function App() {
 
     if (status === false) setErro(erro + 1)
   }
+/* ===================================================================================================================================================================================== */
+
+  const [verifica, setVerifica] = useState("");
+  let [chute, setChute] = useState("")
+
+/* ================================================================================================================================================================================= */
+  function chutar (){
+    if(verifica===palavras[n])
+    setChute(verifica);
+  }
+/* ================================================================================================================================================================================= */
 
   console.log(palavraEscolhida)
 
@@ -70,8 +80,8 @@ export default function App() {
           <img src={`./assets/forca${erro}.png`}></img>
           <div className="palavras">
             <button className="escolhaPalavra" disabled={desabilitado} onClick={() => escolherAPalavra(palavras)} >Escolher Palavra</button>
-            <p className={(erro === 6) ? "red" : ""}>
-              {((erro === 6) ? palavraEscolhida : underlineInit)} 
+            <p className={`${(erro === 6) ? "red" : ""} ${(chute===palavras[n]) ? "green" : ""}` }>
+              {((erro === 6) || (chute===palavras[n]) ? palavraEscolhida : underlineInit)} 
             </p>
           </div>
         </div>
@@ -79,13 +89,17 @@ export default function App() {
         <div className="teclas">
           <div className="teclado">
             {pc.map((a, index) => <button key={index}  className={`letras ${(palavraEscolhida !== undefined) ? "teclasHabilitadas" : ""}
-            ${clicados.includes(a) ? "clicado" : ""} 
-            ${(erro===6) ? "clicado" : ""} `} onClick={() => clickTecla(a, index)} disabled={(clicados.includes(a) || (erro===6) || (palavraEscolhida===undefined)) ? true : false } >{a}</button>)}
+            ${clicados.includes(a) || (erro===6) || (chute===palavras[n]) ? "clicado" : ""} 
+             `} onClick={() => clickTecla(a, index)} 
+               disabled={(clicados.includes(a) || (erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined)) ? true : false } >{a}</button>)}
+
           </div>
           <div className="chute">
             <p>Já sei a palavra!</p>
-            <input type="text" id="palavra" name="chute"></input>
-            <button className={`chutar-desabilitado ${(palavraEscolhida !== undefined) ? "chutar-habilitado" : ""}`} >Chutar</button>
+            <input disabled={(palavraEscolhida===undefined) ? true : false } 
+              value={verifica} onChange={e => setVerifica(e.target.value)} type="text" id="palavra" name="chute"></input>
+
+            <button className={`chutar-desabilitado ${(palavraEscolhida !== undefined) ? "chutar-habilitado" : ""}`}  onClick={chutar} >Chutar</button>
           </div>
         </div>
       </div>
