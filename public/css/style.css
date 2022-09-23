@@ -15,8 +15,8 @@ body {
 }
 
 .topo {
-  width: 650px;
-  height: 400px;
+  width: 750px;
+  height: 300px;
   padding-top: 30px;
   display: flex;
   justify-content: space-between;
@@ -41,14 +41,17 @@ body {
 
 .teclado {
   width: 600px;
-  height: 100px;
+  height: 200px;
   margin-top: 40px;
   margin-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .letras {
-  width: 35px;
-  height: 35px;
+  width: 50px;
+  height: 50px;
   background-color: #9faab5;
   color: #79818c;
   font-weight: bold;
@@ -79,13 +82,53 @@ width: 600px;
   background-color: #FAFAFA;
 }
 
-.chutar {
+.chutar-desabilitado {
   height: 30px;
-  background-color: #e1ecf4;
+  background-color: #9faab5;
   font-weight: bold;
   color: #5a80a0;
   border-color: #5a80a0;
   border-radius: 5px;
 }
 
+/* style do jogo iniciado */
 
+.chutar-habilitado {
+  background-color: #e1ecf4;
+}
+
+.red{
+  color: red;
+}
+
+.palavras {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items:flex-end;
+  justify-content: space-between;
+}
+
+.palavras > p{
+  
+  font-size: 30px;
+  font-weight: 400;
+}
+
+.teclasHabilitadas {
+  background-color: #e1ecf4;
+  color: #39739d;
+  border: solid 1px #39739d;
+}
+
+/* style fim do jogo */
+
+.clicado {
+  background-color: #9faab5;
+  border: none;
+}
+
+.green {
+  color: #27ae60;
+ 
+}
