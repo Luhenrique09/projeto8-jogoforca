@@ -18,29 +18,32 @@ export default function App() {
   const [palavraEscolhida, setPalavraEscolhia] = useState();
   const [desabilitado, setdesabilitado] = useState(false);
 
+  const [corrige, setCorrige] = useState([]);
+ 
+
 /* =========================================================================================================================================================================*/
   function escolherAPalavra(p) {
     escolhida = p[getRandomValue(0, 230)].split("");
     setPalavraEscolhia(escolhida);
-    console.log(p[n])
+    
     for (let i = 0; i < escolhida.length; i++)
       underline.push("_ ");
     setUnderlineInit(underline);
     setdesabilitado(true)
-    
+   
     
   }
   /*=======================================================================================================================================================================*/
   
   let [escolhidaPosicao, setEscolhidaPosicao] = useState();
   let [erro, setErro] = useState(0);
-  
   const [clicados, setClicados] = useState([]);
-  
 /* ============================================================================================================================================================================== */
-  function clickTecla(t, idx) {
+  function clickTecla(t) {
     let status = false;
     setClicados([...clicados, t])
+   /*  setCorrige(...underlineInit) */
+    
 
     for (let i = 0; i < palavraEscolhida.length; i++) {
       escolhidaPosicao = t;
@@ -52,26 +55,30 @@ export default function App() {
       ) {
         underlineInit[i] = palavraEscolhida[i]
         status = true;
+        setCorrige([...palavraEscolhida])
 
       }
 
     }
 
     if (status === false) setErro(erro + 1)
+    console.log(corrige)
   }
 /* ===================================================================================================================================================================================== */
 
   const [verifica, setVerifica] = useState("");
   let [chute, setChute] = useState("")
-
 /* ================================================================================================================================================================================= */
   function chutar (){
     if(verifica===palavras[n])
     setChute(verifica);
   }
 /* ================================================================================================================================================================================= */
-
+  
   console.log(palavraEscolhida)
+  console.log(palavras[n])
+  if(corrige===underlineInit) console.log("isssssssso")
+
 
   return (
     <div>
@@ -80,7 +87,7 @@ export default function App() {
           <img src={`./assets/forca${erro}.png`}></img>
           <div className="palavras">
             <button className="escolhaPalavra" disabled={desabilitado} onClick={() => escolherAPalavra(palavras)} >Escolher Palavra</button>
-            <p className={`${(erro === 6) ? "red" : ""} ${(chute===palavras[n]) ? "green" : ""}` }>
+            <p className={`${(erro === 6) ? "red" : ""} ${(chute===palavras[n] || palavraEscolhida===underlineInit) ? "green" : ""}` }>
               {((erro === 6) || (chute===palavras[n]) ? palavraEscolhida : underlineInit)} 
             </p>
           </div>
@@ -99,7 +106,7 @@ export default function App() {
             <input disabled={(palavraEscolhida===undefined) ? true : false } 
               value={verifica} onChange={e => setVerifica(e.target.value)} type="text" id="palavra" name="chute"></input>
 
-            <button className={`chutar-desabilitado ${(palavraEscolhida !== undefined) ? "chutar-habilitado" : ""}`}  onClick={chutar} >Chutar</button>
+            <button disabled={(erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined) ? true : false }  className={`chutar-desabilitado ${(palavraEscolhida !== undefined) ? "chutar-habilitado" : "chutar-desabilitado"}`}  onClick={chutar} >Chutar</button>
           </div>
         </div>
       </div>
