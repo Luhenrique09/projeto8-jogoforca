@@ -77,9 +77,7 @@ export default function App() {
   
   console.log(palavraEscolhida)
   console.log(palavras[n])
-  if(corrige===underlineInit) console.log("isssssssso")
-
-
+  
   return (
     <div>
       <div className="conteiner">
