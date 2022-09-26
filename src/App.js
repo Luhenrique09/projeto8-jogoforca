@@ -96,7 +96,7 @@ export default function App() {
         <div className="teclas">
           <div className="teclado">
             {pc.map((a, index) => <button key={index}  className={`letras ${(palavraEscolhida !== undefined) ? "teclasHabilitadas" : ""}
-            ${clicados.includes(a) || (erro===6) || (chute===palavras[n]) ? "clicado" : ""} 
+            ${clicados.includes(a) || (erro===6) || (chute===palavras[n] || valorCerto=== palavras[n]) ? "clicado" : ""} 
              `} onClick={() => clickTecla(a, index)} 
                disabled={(clicados.includes(a) || (erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined)) || (valorCerto === palavras[n]) ? true : false } >{a}</button>)}
 
