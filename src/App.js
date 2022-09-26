@@ -66,19 +66,24 @@ export default function App() {
   }
 /* ===================================================================================================================================================================================== */
 
-  const [verifica, setVerifica] = useState("");
-  let [chute, setChute] = useState("")
+  const [verifica, setVerifica] = useState();
+  const [chute, setChute] = useState()
 /* ================================================================================================================================================================================= */
   function chutar (){
     if(verifica===palavras[n])
     setChute(verifica);
-   
+
+    if(verifica !==palavras[n]){
+      setChute(verifica)
+      setUnderlineInit(palavras[n])
+      setErro(6)
+    }
   }
 /* ================================================================================================================================================================================= */
   
   
   console.log(palavras[n])
-  console.log(valorCerto)
+  console.log(erro)
 
   return (
     <div>
@@ -87,7 +92,7 @@ export default function App() {
           <img src={`./assets/forca${erro}.png`}></img>
           <div className="palavras">
             <button className="escolhaPalavra" disabled={desabilitado} onClick={() => escolherAPalavra(palavras)} >Escolher Palavra</button>
-            <p className={`${(erro === 6) ? "red" : ""} ${(chute===palavras[n]) || (valorCerto === palavras[n]) ? "green" : ""}` }>
+            <p className={`${(erro === 6) || (chute!== palavras[n] && (!underlineInit.includes('_ '))) ? "red" : ""} ${(chute===palavras[n]) || (valorCerto === palavras[n]) ? "green" : ""}` }>
               {((erro === 6) || (chute===palavras[n]) ? palavraEscolhida : underlineInit)} 
             </p>
           </div>
@@ -96,9 +101,9 @@ export default function App() {
         <div className="teclas">
           <div className="teclado">
             {pc.map((a, index) => <button key={index}  className={`letras ${(palavraEscolhida !== undefined) ? "teclasHabilitadas" : ""}
-            ${clicados.includes(a) || (erro===6) || (chute===palavras[n] || valorCerto=== palavras[n]) ? "clicado" : ""} 
+            ${clicados.includes(a) || (erro===6) || (chute!== palavras[n] && (!underlineInit.includes('_ '))) || (chute===palavras[n] || valorCerto=== palavras[n]) ? "clicado" : ""} 
              `} onClick={() => clickTecla(a, index)} 
-               disabled={(clicados.includes(a) || (erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined)) || (valorCerto === palavras[n]) ? true : false } >{a}</button>)}
+               disabled={(clicados.includes(a) || (chute!== palavras[n] && (!underlineInit.includes('_ '))) || (erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined)) || (valorCerto === palavras[n]) ? true : false } >{a}</button>)}
 
           </div>
           <div className="chute">
