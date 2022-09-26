@@ -77,24 +77,20 @@ export default function App() {
   }
 /* ================================================================================================================================================================================= */
   
-  
-  console.log(palavras[n])
-  console.log(erro)
-
   return (
     <div>
       <div className="conteiner">
         <div className="topo">
-          <img src={`./assets/forca${erro}.png`} alt="erros"></img>
+          <img src={`./assets/forca${erro}.png`} alt="erros" data-identifier="game-image"></img>
           <div className="palavras">
-            <button className="escolhaPalavra" disabled={desabilitado} onClick={() => escolherAPalavra(palavras)} >Escolher Palavra</button>
-            <p className={`${(erro === 6) || (chute!== palavras[n] && (!underlineInit.includes('_ '))) ? "red" : ""} ${(chute===palavras[n]) || (valorCerto === palavras[n]) ? "green" : ""}` }>
+            <button className="escolhaPalavra" disabled={desabilitado} onClick={() => escolherAPalavra(palavras)} data-identifier="choose-word">Escolher Palavra</button>
+            <p className={`${(erro === 6) || (chute!== palavras[n] && (!underlineInit.includes('_ '))) ? "red" : ""} ${(chute===palavras[n]) || (valorCerto === palavras[n]) ? "green" : ""}` } data-identifier="word" >
               {((erro === 6) || (chute===palavras[n]) ? palavraEscolhida : underlineInit)} 
             </p>
           </div>
         </div>
 
-        <div className="teclas">
+        <div className="teclas" data-identifier="letter">
           <div className="teclado">
             {pc.map((a, index) => <button key={index}  className={`letras ${(palavraEscolhida !== undefined) ? "teclasHabilitadas" : ""}
             ${clicados.includes(a) || (erro===6) || (chute!== palavras[n] && (!underlineInit.includes('_ '))) || (chute===palavras[n] || valorCerto=== palavras[n]) ? "clicado" : ""} 
@@ -105,9 +101,9 @@ export default function App() {
           <div className="chute">
             <p>Já sei a palavra!</p>
             <input disabled={(palavraEscolhida===undefined) ? true : false } 
-              value={verifica} onChange={e => setVerifica(e.target.value)} type="text" id="palavra" name="chute"></input>
+              value={verifica} onChange={e => setVerifica(e.target.value)} type="text" id="palavra" name="chute" data-identifier="type-guess"></input>
 
-            <button disabled={(erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined) ? true : false }  className={`chutar-desabilitado ${(palavraEscolhida !== undefined) ? "chutar-habilitado" : "chutar-desabilitado"}`}  onClick={chutar} >Chutar</button>
+            <button disabled={(erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined) ? true : false }  className={`chutar-desabilitado ${(palavraEscolhida !== undefined) ? "chutar-habilitado" : "chutar-desabilitado"}`}  onClick={chutar} data-identifier="guess-button" >Chutar</button>
           </div>
         </div>
       </div>
