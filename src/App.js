@@ -17,8 +17,6 @@ export default function App() {
   const [underlineInit, setUnderlineInit] = useState();
   const [palavraEscolhida, setPalavraEscolhia] = useState();
   const [desabilitado, setdesabilitado] = useState(false);
-
-  const [corrige, setCorrige] = useState([]);
  
 
 /* =========================================================================================================================================================================*/
@@ -34,7 +32,7 @@ export default function App() {
     
   }
   /*=======================================================================================================================================================================*/
-  
+  const [valorCerto, setValorCerto] = useState();
   let [escolhidaPosicao, setEscolhidaPosicao] = useState();
   let [erro, setErro] = useState(0);
   const [clicados, setClicados] = useState([]);
@@ -42,7 +40,7 @@ export default function App() {
   function clickTecla(t) {
     let status = false;
     setClicados([...clicados, t])
-   /*  setCorrige(...underlineInit) */
+   
     
 
     for (let i = 0; i < palavraEscolhida.length; i++) {
@@ -55,14 +53,16 @@ export default function App() {
       ) {
         underlineInit[i] = palavraEscolhida[i]
         status = true;
-        setCorrige([...palavraEscolhida])
-
+       
       }
 
     }
 
     if (status === false) setErro(erro + 1)
-    console.log(corrige)
+    if (underlineInit.join('') === palavras[n] ) {
+      setValorCerto(underlineInit.join(''))
+     
+    }
   }
 /* ===================================================================================================================================================================================== */
 
@@ -72,12 +72,14 @@ export default function App() {
   function chutar (){
     if(verifica===palavras[n])
     setChute(verifica);
+   
   }
 /* ================================================================================================================================================================================= */
   
-  console.log(palavraEscolhida)
-  console.log(palavras[n])
   
+  console.log(palavras[n])
+  console.log(valorCerto)
+
   return (
     <div>
       <div className="conteiner">
@@ -85,7 +87,7 @@ export default function App() {
           <img src={`./assets/forca${erro}.png`}></img>
           <div className="palavras">
             <button className="escolhaPalavra" disabled={desabilitado} onClick={() => escolherAPalavra(palavras)} >Escolher Palavra</button>
-            <p className={`${(erro === 6) ? "red" : ""} ${(chute===palavras[n] || palavraEscolhida===underlineInit) ? "green" : ""}` }>
+            <p className={`${(erro === 6) ? "red" : ""} ${(chute===palavras[n]) || (valorCerto === palavras[n]) ? "green" : ""}` }>
               {((erro === 6) || (chute===palavras[n]) ? palavraEscolhida : underlineInit)} 
             </p>
           </div>
@@ -96,7 +98,7 @@ export default function App() {
             {pc.map((a, index) => <button key={index}  className={`letras ${(palavraEscolhida !== undefined) ? "teclasHabilitadas" : ""}
             ${clicados.includes(a) || (erro===6) || (chute===palavras[n]) ? "clicado" : ""} 
              `} onClick={() => clickTecla(a, index)} 
-               disabled={(clicados.includes(a) || (erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined)) ? true : false } >{a}</button>)}
+               disabled={(clicados.includes(a) || (erro===6) || (chute===palavras[n]) || (palavraEscolhida===undefined)) || (valorCerto === palavras[n]) ? true : false } >{a}</button>)}
 
           </div>
           <div className="chute">
