@@ -33,7 +33,6 @@ export default function App() {
   }
   /*=======================================================================================================================================================================*/
   const [valorCerto, setValorCerto] = useState();
-  let [escolhidaPosicao, setEscolhidaPosicao] = useState();
   let [erro, setErro] = useState(0);
   const [clicados, setClicados] = useState([]);
 /* ============================================================================================================================================================================== */
@@ -41,11 +40,8 @@ export default function App() {
     let status = false;
     setClicados([...clicados, t])
    
-    
-
     for (let i = 0; i < palavraEscolhida.length; i++) {
-      escolhidaPosicao = t;
-      setEscolhidaPosicao(t)
+   
 
       if ((t === palavraEscolhida[i]) || (t === 'u' && palavraEscolhida[i] === 'ú') || (t === 'o' && palavraEscolhida[i] === ('ô' && 'ò' && 'ô' && 'ó'))
         || (t === 'e' && palavraEscolhida[i] === ('é' && 'è' && 'ê')) || (t === 'i' && palavraEscolhida[i] === 'í') || (t === 'a' && palavraEscolhida[i] === ('à' && 'á' && 'ã'))
@@ -89,7 +85,7 @@ export default function App() {
     <div>
       <div className="conteiner">
         <div className="topo">
-          <img src={`./assets/forca${erro}.png`}></img>
+          <img src={`./assets/forca${erro}.png`} alt="erros"></img>
           <div className="palavras">
             <button className="escolhaPalavra" disabled={desabilitado} onClick={() => escolherAPalavra(palavras)} >Escolher Palavra</button>
             <p className={`${(erro === 6) || (chute!== palavras[n] && (!underlineInit.includes('_ '))) ? "red" : ""} ${(chute===palavras[n]) || (valorCerto === palavras[n]) ? "green" : ""}` }>
